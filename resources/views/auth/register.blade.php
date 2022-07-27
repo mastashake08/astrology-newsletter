@@ -19,6 +19,27 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <!-- Zodiac Sign -->
+            <div>
+                <x-label for="zodiac_sign" :value="__('Zodiac Sign')" />
+                <datalist id="zodiacs">
+
+                  <option value="aries">
+                  <option value="taurus">
+                  <option value="gemini">
+                  <option value="cancer">
+                  <option value="leo">
+                  <option value="virgo">
+                  <option value="libra">
+                  <option value="scorpio">
+                  <option value="sagittarius">
+                  <option value="capricorn">
+                  <option value="aquarius">
+                  <option value="pisces">
+                </datalist>
+                <x-input id="zodiac_sign" list="zodiacs" class="block mt-1 w-full" type="text" name="zodiac_sign" :value="old('zodiac_sign')" required autofocus />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
