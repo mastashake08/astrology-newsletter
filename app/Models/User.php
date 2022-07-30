@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'phone_number',
-        'zodiac_sign'
+        'zodiac_sign',
+        'trial_ends_at'
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'trial_ends_at' => 'datetime',
     ];
 
     public function routeNotificationForTwilio()
