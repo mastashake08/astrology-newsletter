@@ -19,6 +19,13 @@
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
             </div>
 
+            <!-- Phone -->
+            <div>
+                <x-label for="phone_number" :value="__('Phone Number')" />
+
+                <x-input id="phone_number" class="block mt-1 w-full" type="tel" name="phone_number" :value="old('phone_number')"  autofocus />
+            </div>
+
             <!-- Zodiac Sign -->
             <div>
                 <x-label for="zodiac_sign" :value="__('Zodiac Sign')"/>

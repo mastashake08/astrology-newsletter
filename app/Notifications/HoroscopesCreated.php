@@ -8,7 +8,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twilio\TwilioChannel;
 use NotificationChannels\Twilio\TwilioSmsMessage;
-use Illuminate\Notifications\Notification;
 class HoroscopesCreated extends Notification
 {
     use Queueable;
@@ -32,7 +31,7 @@ class HoroscopesCreated extends Notification
      */
     public function via($notifiable)
     {
-      return ['mail'];
+      return ['mail', TwilioChannel::class];
     }
 
     /**
@@ -69,7 +68,7 @@ class HoroscopesCreated extends Notification
     {
         $sign = Str::of($notifiable->zodiac_sign)->ucfirst();
         $string = "Your {$sign} Horoscope For {$this->horoscope['data']['current_date']} \n
-        {$this->$horoscope['data']['description']} \n";
+        {$this->horoscope['data']['description']} \n";
         return (new TwilioSmsMessage())
             ->content($string);
     }
