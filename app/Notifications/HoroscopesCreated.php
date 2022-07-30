@@ -1,24 +1,27 @@
 <?php
 
 namespace App\Notifications;
-
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
+use NotificationChannels\Twilio\TwilioChannel;
+use NotificationChannels\Twilio\TwilioSmsMessage;
+use Illuminate\Notifications\Notification;
 class HoroscopesCreated extends Notification
 {
     use Queueable;
-
+    public $horoscope;
     /**
-     * Create a new notification instance.
+     * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(\App\Models\Horoscope $h)
     {
         //
+        $this->horoscope = $h;
     }
 
     /**
@@ -29,7 +32,7 @@ class HoroscopesCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+      return ['mail'];
     }
 
     /**
@@ -40,10 +43,13 @@ class HoroscopesCreated extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+      $data = [
+        'user' => $notifiable,
+        'horoscope' => $this->horoscope
+      ];
+      $sign = Str::of($notifiable->zodiac_sign)->ucfirst();
+      return (new MailMessage)
+      ->subject("Your {$sign} Horoscope For {$this->horoscope['data']['current_date']}")->markdown('mail.horoscope-created',$data);
     }
 
     /**
@@ -57,5 +63,14 @@ class HoroscopesCreated extends Notification
         return [
             //
         ];
+    }
+
+    public function toTwilio($notifiable)
+    {
+        $sign = Str::of($notifiable->zodiac_sign)->ucfirst();
+        $string = "Your {$sign} Horoscope For {$this->horoscope['data']['current_date']} \n
+        {$this->$horoscope['data']['description']} \n";
+        return (new TwilioSmsMessage())
+            ->content($string);
     }
 }

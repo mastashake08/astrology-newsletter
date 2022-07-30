@@ -5,6 +5,9 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Notifications\HoroscopesCreated;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Notification;
 
 class HoroscopeTest extends TestCase
 {
@@ -27,14 +30,30 @@ class HoroscopeTest extends TestCase
             ->has('zodiac_sign')
         );
         $response->assertSuccessful();
-        return $response;
     }
 
     public function test_user_notifications() {
-      $users =  \App\Models\User::factory()->count(100)->create();
-      // $response = $this->test_store_method();
-      // $this->assertDatabaseHas('users', [
-      //     'zodiac_sign' => $response['data']['zodiac_sign'],
-      // ]);
+      $user =  \App\Models\User::factory()->create();
+      $response = $this->post('/api/get-horoscope', [
+        'sign' => $user->zodiac_sign
+      ]);
+      $response->assertJson(fn (AssertableJson $json) =>
+        $json->has('id')
+          ->has('created_at')
+          ->has('updated_at')
+          ->has('data')
+          ->has('zodiac_sign')
+      );
+      Notification::fake();
+
+        // Perform order shipping...
+
+        // Assert that no notifications were sent...
+        Notification::assertNothingSent();
+        $user->notify(new HoroscopesCreated($response));
+        // Assert a notification was sent to the given users...
+        Notification::assertSentTo(
+            [$user], HoroscopesCreated::class
+        );
     }
 }

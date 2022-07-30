@@ -12,4 +12,7 @@ class Horoscope extends Model
       'data',
       'zodiac_sign'
     ];
+    protected $casts = [
+        'data' => 'array',
+    ];
 }

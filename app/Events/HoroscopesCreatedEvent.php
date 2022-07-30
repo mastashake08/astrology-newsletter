@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class HoroscopesCreatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    public $horoscope;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(\App\Models\Horoscope $h)
     {
         //
+        $this->horoscope = $h;
     }
 
     /**

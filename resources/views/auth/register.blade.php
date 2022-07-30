@@ -21,23 +21,23 @@
 
             <!-- Zodiac Sign -->
             <div>
-                <x-label for="zodiac_sign" :value="__('Zodiac Sign')" />
+                <x-label for="zodiac_sign" :value="__('Zodiac Sign')"/>
                 <datalist id="zodiacs">
 
-                  <option value="aries">
-                  <option value="taurus">
-                  <option value="gemini">
-                  <option value="cancer">
-                  <option value="leo">
-                  <option value="virgo">
-                  <option value="libra">
-                  <option value="scorpio">
-                  <option value="sagittarius">
-                  <option value="capricorn">
-                  <option value="aquarius">
-                  <option value="pisces">
+                  <option value="Aries">
+                  <option value="Taurus">
+                  <option value="Gemini">
+                  <option value="Cancer">
+                  <option value="Leo">
+                  <option value="Virgo">
+                  <option value="Libra">
+                  <option value="Scorpio">
+                  <option value="Sagittarius">
+                  <option value="Capricorn">
+                  <option value="Aquarius">
+                  <option value="Pisces">
                 </datalist>
-                <x-input id="zodiac_sign" list="zodiacs" class="block mt-1 w-full" type="text" name="zodiac_sign" :value="old('zodiac_sign')" required autofocus />
+                <x-input id="zodiac_sign" list="zodiacs" class="block mt-1 w-full" type="text" name="zodiac_sign"  required autofocus />
             </div>
 
             <!-- Email Address -->
