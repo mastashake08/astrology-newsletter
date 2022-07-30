@@ -45,9 +45,10 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'zodiac_sign' => $request->zodiac_sign,
             'phone_number' => $request->phone_number,
+            'trial_ends_at' => now()->addDays(7),
             'password' => Hash::make($request->password),
         ]);
-
+        $user->createAsStripeCustomer();
         event(new Registered($user));
 
         Auth::login($user);

@@ -18,8 +18,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\HoroscopesCreatedEvent' => [
-          'App\Listeners\HoroscopesCreatedListener'
+        'App\Events\UserCreated' => [
+          'App\Listeners\UserCreatedListener'
         ],
     ];
 

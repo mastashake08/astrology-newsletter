@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\HoroscopesCreatedEvent;
+use App\Events\UserCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class HoroscopesCreatedListener
+class UserCreatedListener
 {
     /**
      * Create the event listener.
@@ -21,11 +21,12 @@ class HoroscopesCreatedListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\HoroscopesCreatedEvent  $event
+     * @param  \App\Events\UserCreated  $event
      * @return void
      */
-    public function handle(HoroscopesCreatedEvent $event)
+    public function handle(UserCreated $event)
     {
         //
+        $event->user->notify(new \App\Notifications\NewRegistration());
     }
 }

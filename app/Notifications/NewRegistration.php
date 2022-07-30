@@ -1,26 +1,26 @@
 <?php
 
 namespace App\Notifications;
-use Illuminate\Support\Str;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Twilio\TwilioChannel;
 use NotificationChannels\Twilio\TwilioSmsMessage;
-class HoroscopesCreated extends Notification
+
+class NewRegistration extends Notification
 {
     use Queueable;
-    public $horoscope;
+
     /**
-     * Create a new event instance.
+     * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(\App\Models\Horoscope $h)
+    public function __construct()
     {
         //
-        $this->horoscope = $h;
     }
 
     /**
@@ -31,11 +31,7 @@ class HoroscopesCreated extends Notification
      */
     public function via($notifiable)
     {
-      if($notifiable->subscribed('default') || $notifiable->onTrial()) {
-        return ['mail', TwilioChannel::class];
-      } else {
-        return ['mail'];
-      }
+        return [TwilioChannel::class];
     }
 
     /**
@@ -46,13 +42,10 @@ class HoroscopesCreated extends Notification
      */
     public function toMail($notifiable)
     {
-      $data = [
-        'user' => $notifiable,
-        'horoscope' => $this->horoscope
-      ];
-      $sign = Str::of($notifiable->zodiac_sign)->ucfirst();
-      return (new MailMessage)
-      ->subject("Your {$sign} Horoscope For {$this->horoscope['data']['current_date']}")->markdown('mail.horoscope-created',$data);
+        return (new MailMessage)
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -70,9 +63,8 @@ class HoroscopesCreated extends Notification
 
     public function toTwilio($notifiable)
     {
-        $sign = Str::of($notifiable->zodiac_sign)->ucfirst();
-        $string = "Your {$sign} Horoscope For {$this->horoscope['data']['current_date']} \n
-        {$this->horoscope['data']['description']} \n";
+        $link = url("/billing-portal/{$notifiable->id}");
+        $string = "Your 7-day trial is now active! To continue please update your billing info at {$link}";
         return (new TwilioSmsMessage())
             ->content($string);
     }

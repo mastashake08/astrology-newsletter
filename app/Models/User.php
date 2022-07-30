@@ -1,16 +1,16 @@
 <?php
 
 namespace App\Models;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Cashier\Billable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Events\UserCreated;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -48,4 +48,13 @@ class User extends Authenticatable
     {
         return $this->phone_number;
     }
+
+    /**
+    * The event map for the model.
+    *
+    * @var array
+    */
+   protected $dispatchesEvents = [
+       'created' => UserCreated::class
+   ];
 }

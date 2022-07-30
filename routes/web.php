@@ -20,5 +20,15 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::get('/billing-portal/{user}', function (\App\Models\User $user) {
 
+    return $user->redirectToBillingPortal(route('dashboard'));
+});
+Route::post('/user/subscribe', function (Request $request) {
+    $request->user()->newSubscription(
+        'default', 'price_1LR8giDVNWGpANFq7Qy9gBRU'
+    )->create($request->user()->defaultPaymentMethod());
+
+    // ...
+});
 require __DIR__.'/auth.php';
