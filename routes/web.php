@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/dashboard', function (Request $request) {
+    return view('dashboard')->with([
+      'horoscopes' => \App\Models\Horoscope::where('zodiac_sign', Str::of($request->user()->zodiac_sign)->ucfirst())->get()->sortDesc()
+    ]);
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/horoscope/{horoscope}', [\App\Http\Controllers\HoroscopeController::class, 'show'])->middleware(['auth']);
