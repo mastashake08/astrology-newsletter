@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Horoscope
+            {{$horoscope->zodiac_sign}} Horoscope - {{$horoscope->data['current_date']}}
         </h2>
     </x-slot>
 
@@ -16,15 +16,16 @@
                   <p id="horoscope-number">
                     {{$horoscope->data['lucky_number']}}
                   </p>
+                  <x-label for="horoscope-mood" value="Mood" />
+                  <p id="horoscope-mood">
+                    {{$horoscope->data['mood']}}
+                  </p>
                   <x-label for="horoscope-color-svg" value="Lucky Color" />
 
                   <svg id="horoscope-color-svg">
                     <rect x="0" y="0" id="horoscope-color"/>
                   </svg>
-                  <x-label for="horoscope-mood" value="Mood" />
-                  <p id="horoscope-mood">
-                    {{$horoscope->data['mood']}}
-                  </p>
+
                 </div>
             </div>
         </div>
