@@ -52,6 +52,7 @@ class HoroscopeController extends Controller
     public function show(Horoscope $horoscope)
     {
         //
+        return view('horoscope.individual')->with(['horoscope' => $horoscope]);
     }
 
     /**
