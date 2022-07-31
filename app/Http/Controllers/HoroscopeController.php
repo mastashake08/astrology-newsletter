@@ -52,6 +52,11 @@ class HoroscopeController extends Controller
     public function show(Horoscope $horoscope)
     {
         //
+        seo()
+          ->title("{$horoscope->zodiac_sign} Horoscope - {$horoscope->data['current_date']}")
+          ->description($horoscope->data['description'])
+          ->withUrl()
+          ->twitter();
         return view('horoscope.individual')->with(['horoscope' => $horoscope]);
     }
 
