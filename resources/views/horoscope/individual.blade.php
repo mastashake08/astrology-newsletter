@@ -32,12 +32,10 @@
 </x-app-layout>
 <style>
 #horoscope-color {
-   width: 100px;
-   height: 100px;
+   width: 50px;
+   height: 50px;
    fill: {{Str::of($horoscope->data['color'])->lcfirst()}};
    position: relative;
-   animation-name: luckycolor;
-   animation-duration: 4s;
-   animation-iteration-count: infinite;
+   animation: luckycolor 5s ease infinite;
  }
 </style>
