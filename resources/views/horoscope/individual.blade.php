@@ -40,12 +40,4 @@
    animation-duration: 4s;
    animation-iteration-count: infinite;
  }
-
- @keyframes luckycolor {
-   0%   { left:0px; top:0px;}
-   25%  { left:200px; top:0px;}
-   50%  { left:200px; top:200px;}
-   75%  { left:0px; top:200px;}
-   100% { left:0px; top:0px;}
- }
 </style>
