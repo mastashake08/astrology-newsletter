@@ -20,7 +20,7 @@
                   <p id="horoscope-mood">
                     {{$horoscope->data['mood']}}
                   </p>
-                  <x-label for="horoscope-color-svg" value="Lucky Color" />
+                  <x-label for="horoscope-color-svg" value="Lucky Color: {{$horoscope->data['color']}}" />
 
                   <svg id="horoscope-color-svg">
                     <rect x="0" y="0" id="horoscope-color"/>
@@ -33,8 +33,8 @@
 </x-app-layout>
 <style>
 #horoscope-color {
-   width: 50px;
-   height: 50px;
+   width: 100px;
+   height: 100px;
    fill: {{Str::of($horoscope->data['color'])->lcfirst()}};
    position: relative;
    animation: luckycolor 5s ease infinite;

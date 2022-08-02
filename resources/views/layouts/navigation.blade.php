@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <x-application-logo class="block h-100 w-100 fill-current text-gray-600" />
                     </a>
                 </div>
 
@@ -14,6 +14,10 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('horoscopes')">
+                        {{ __('Horoscopes') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -34,6 +38,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                      <x-dropdown-link :href="route('pricing')">
+                          {{ __('Pricing') }}
+                      </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

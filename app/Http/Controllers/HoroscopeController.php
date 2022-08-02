@@ -15,6 +15,13 @@ class HoroscopeController extends Controller
     public function index()
     {
         //
+        $horoscopes = Horoscope::orderByDesc('created_at')->Paginate(12);
+        seo()
+          ->title("Horoscopes")
+          ->description("See current daily horoscopes")
+          ->withUrl()
+          ->twitter();
+        return view('horoscope.all')->with(['horoscopes' => $horoscopes]);
     }
 
     /**

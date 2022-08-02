@@ -7,6 +7,21 @@
 
    50% {
      transform: translate(23%, 0%);
+     box-shadow: 0 0 10px -10px #aef4af;
    }
 
+   100% {
+     box-shadow: 0 0 10px 10px #aef4af;
+   }
  }
+
+
+
+@-webkit-keyframes glow {
+  from {
+    box-shadow: 0 0 10px -10px #aef4af;
+  }
+  to {
+    box-shadow: 0 0 10px 10px #aef4af;
+  }
+}

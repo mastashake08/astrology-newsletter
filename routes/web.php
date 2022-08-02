@@ -25,11 +25,16 @@ Route::get('/dashboard', function (Request $request) {
     ]);
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/horoscope/{horoscope}', [\App\Http\Controllers\HoroscopeController::class, 'show'])->middleware(['auth']);
-Route::get('/billing-portal/{user}', function (\App\Models\User $user) {
+Route::get('/pricing', function () {
+    return view('pricing');
+})->name('pricing');
 
-    return $user->redirectToBillingPortal(route('dashboard'));
-});
+Route::get('/horoscope/{horoscope}', [\App\Http\Controllers\HoroscopeController::class, 'show'])->middleware(['auth']);
+Route::get('/horoscope/', [\App\Http\Controllers\HoroscopeController::class, 'index'])->name('horoscopes');
+Route::get('/billing-portal', function (Request $request) {
+
+    return $request->user()->redirectToBillingPortal(route('dashboard'));
+})->middleware(['auth'])->name('billing');
 
 Route::post('/user/subscribe', function (Request $request) {
     $request->user()->newSubscription(
