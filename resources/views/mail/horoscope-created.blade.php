@@ -17,7 +17,7 @@ Mood: {{$horoscope['data']['mood']}}
 <p class="horoscope-time">
 Lucky Time: {{$horoscope['data']['lucky_time']}}
 </p>
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => url('/dashboard')])
 Login to see more!
 @endcomponent
 
