@@ -1,4 +1,13 @@
+@component('mail::layout')
+    {{-- Header --}}
+    @slot('header')
+        @component('mail::header', ['url' => config('app.url')])
+            {{ config('app.name') }}
+            <img src="{{url('/assets/images/icon.svg')}}" height="100" width="100"/>
+        @endcomponent
+    @endslot
 @component('mail::message')
+
 # {{$user->zodiac_sign}} - {{$horoscope['data']['current_date']}}
 
 {{$user->name}} your daily horoscope is ready!
